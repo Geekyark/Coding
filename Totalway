@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+int E[102][2];
+int cnt=1;
+int N,M;
+priority_queue<int>pq;
+
+int solve(int curr,vector<int>&vis,vector<vector<int>>&adj){
+   // int k=adj.size();
+    vis[curr]=1;
+    for(auto it:adj[curr]){
+        if(!vis[it]){
+            cnt++;
+           cnt= solve(it,vis,adj);
+        }
+    }
+    
+    pq.push(cnt);
+    return cnt-1;
+    
+}
+
+
+int totalways(int N,vector<vector<int>>&adj){
+    vector<int>vis(N+1,0);
+    
+            solve(1,vis,adj);
+        
+    int aa=pq.top();
+    return aa;
+}
+int main(){
+    int tc;
+    cin>>tc;
+    for(int test=1;test<=tc;test++){
+        cin>>N>>M;
+        for(int i=0;i<M;i++){
+            cin>>E[i][0]>>E[i][1];
+        }
+         
+        vector<vector<int>>adj(N+1);
+       for(int i=0;i<M;i++){
+            adj[E[i][0]].push_back(E[i][1]);
+            adj[E[i][1]].push_back(E[i][0]);
+       }
+        cout<<"#"<<test<<" "<<totalways(M,adj)<<endl;
+        for(int i=1;i<=N;i++)
+        pq.pop();
+    }
+    
+}
