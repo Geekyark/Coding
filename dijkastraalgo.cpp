@@ -9,8 +9,8 @@ int main(){
         cin>>u>>v>>wt;
         vector<pair<int,int>>g[n+1];
         for(int i=0;i<u;i++){
-            g[u].push_back(make_pair(v,wt));
-            g[v].push_back(make_pair(u,wt));
+            g[u].push_back({v,wt});
+            g[v].push_back({u,wt});
             
         }
         cin>>source;
@@ -18,7 +18,7 @@ int main(){
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
         vector<int>disto(0,INT_MAX);
         disto[source]=0;
-        pq.push(make_pair(0,source));
+        pq.push({0,source});
         while(!pq.empty()){
             int dist=pq.top().first;
             int prev=pq.top().second;
@@ -29,7 +29,7 @@ int main(){
             int nextdist=it->second;
             if(disto[next]>disto[prev]+nextdist){
             disto[next]=disto[prev]+nextdist;
-            pq.push(make_pair(disto[next],next));
+            pq.push({disto[next],next});
             
         }
         
